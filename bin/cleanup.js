@@ -16,6 +16,8 @@ var collectionsToRemove = ['users', 'topics', 'replies', 'gambits'];
 program
   .version('0.0.1')
   .option('--facts [type]', 'Fact Directory', './systemDB')
+  .option('--host [type]', 'Mongo host', 'localhost')
+  .option('--port [type]', 'Mongo port', '27017')
   .option('--mongo [type]', 'Mongo Database Name', 'systemDB')
   .option('--topic [type]', 'Topic Directory', './topics')
   .option('--skip-remove-all', 'Skip removal of: ' + collectionsToRemove.join(', '))
@@ -83,7 +85,7 @@ function createFresh () {
 
 // Setup Mongo Client
 var MongoClient = Promise.promisifyAll( require('mongodb') ).MongoClient,
-    mongoURL = 'mongodb://localhost/' + program.mongo;
+    mongoURL = 'mongodb://' + program.host + ':' + program.port + '/' + program.mongo;
 
 
 // DO ALL THE THINGS
